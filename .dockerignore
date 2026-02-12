@@ -1,0 +1,53 @@
+# Keep the Docker build context small and avoid leaking local/dev artifacts
+
+# VCS
+.git
+.gitignore
+.github
+
+# Python caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.pytype/
+.ruff_cache/
+.coverage*
+htmlcov/
+
+# Virtualenvs / local env
+.venv/
+venv/
+ENV/
+env/
+
+# Environment / secrets (never copy into images)
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+
+# IDE / editor
+.vscode/
+.idea/
+*.code-workspace
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Build / packaging output
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Docs / notes (not needed at runtime)
+docs/_build/
+TODO.md
+
+# Tests (exclude from runtime image; keep locally and in CI)
+tests/

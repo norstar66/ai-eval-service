@@ -60,7 +60,7 @@ python3.12.12 -m pip freeze > requirements.lock.txt
 ## Run the Application Locally
 
 ```bash
-python3.12.12 -m uvicorn app.main:app --reload
+python3 -m uvicorn app.main:app --reload
 ```
 
 ### Test the Application Locally:
@@ -73,7 +73,7 @@ python3.12.12 -m uvicorn app.main:app --reload
 # Docker
 
 ## Build the Docker Image
-
+#### **NOTE**: build the image from the root directory of the project. Rebuild after every change to the project.
 ```bash
 docker build -t ai-eval-service .
 ```
@@ -91,8 +91,36 @@ docker run -p 8000:8000 ai-eval-service
 - http://localhost:8000/docs, you should see the API docs.
 - If all work, scaffolding is correct.
 
+## Test the Application from Container:
+
+```bash
+http POST :8000/inference prompt="What is the capital of France?" model="stub" max_sentences:=1 max_words:=30 max_characters:=200
+```
+
 # Unit Testing
 
 ```bash
-python3.12.12 -m pytest -q
+python3 -m pytest -q
 ```
+
+
+# Stopping the service and container
+
+## Closing the uvicorn server
+
+**Note: closing by the process id is more accurte and preferred**
+```bash
+ps aux | grep uvicorn # to see the process id --> copy the process id
+kill <process_id> # to stop the server
+```
+**or**
+```bash
+pkill -f uvicorn # will kill all the processes with uvicorn in the name
+```
+
+## Closing the Docker Container
+```bash
+docker ps # to see the container id --> copy the container id
+docker stop <container_id> # to stop the container
+```
+
